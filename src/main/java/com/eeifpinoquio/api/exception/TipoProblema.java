@@ -5,8 +5,6 @@ import lombok.Getter;
 @Getter
 public enum TipoProblema {
 	
-	RECURSO_JA_EXISTE("/recurso-ja-existe", "Recurso já existe"),
-	RECURSO_EM_USO("/recurso-em-uso", "Recurso em uso"),
 	RECURSO_NAO_ENCONTRADO("/recurso-nao-encontrado", "Recurso não encontrado"),
 	ERRO_NA_REQUISICAO("/erro-na-requisicao", "Erro na requisição"),
 	METODO_NAO_SUPORTADO("/metodo-nao-suportado", "Método não suportado"),
