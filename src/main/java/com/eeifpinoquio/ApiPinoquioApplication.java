@@ -1,4 +1,4 @@
-package com.eeifpinoquio.apipinoquio;
+package com.eeifpinoquio;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
