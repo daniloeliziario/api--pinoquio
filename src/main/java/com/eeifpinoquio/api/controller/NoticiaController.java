@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.eeifpinoquio.domain.model.Noticia;
+import com.eeifpinoquio.api.controller.converter.noticia.NoticiaMapper;
+import com.eeifpinoquio.api.controller.converter.noticia.NoticiaResponse;
+
 import com.eeifpinoquio.domain.service.NoticiaService;
 
 @RestController
@@ -18,15 +20,18 @@ public class NoticiaController {
 	
 	@Autowired
 	private NoticiaService noticiaService;
+	
+	@Autowired
+	private NoticiaMapper mapper;
 
 	@GetMapping
-	public List<Noticia> listar() {
-		return noticiaService.listarTodos();
+	public List<NoticiaResponse> listar() {
+		return mapper.convert(noticiaService.listarTodos());
 	}
 
 	@GetMapping("/{id}")
-	public Noticia buscar(@PathVariable Long id) {
-		return noticiaService.buscarOuFalhar(id);
+	public NoticiaResponse buscar(@PathVariable Long id) {
+		return mapper.convert(noticiaService.buscarOuFalhar(id));
 	}
 
 }
