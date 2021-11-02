@@ -12,7 +12,7 @@
 	<artifactId>api--pinoquio</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>api--pinoquio</name>
-	<description>API responsável por fornecer os dados da Escola Pinóquio</description>
+	<description>API responsável por gerenciar e fornecer os dados da Escola Pinóquio</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>

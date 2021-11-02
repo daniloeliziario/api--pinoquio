@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.eeifpinoquio.domain.exception.RecursoNaoEncontradoException;
 import com.eeifpinoquio.domain.model.Noticia;
 import com.eeifpinoquio.domain.repository.NoticiaRepository;
@@ -16,6 +18,24 @@ public class NoticiaService {
 	
 	private static final String RECURSO_NOTICIA = "Notícia";
 	
+	
+	@Transactional
+	public Noticia salvar(Noticia noticia) {			
+		return noticiaRepository.save(noticia);
+	}
+	
+	@Transactional
+	public Noticia alterar(Long id, Noticia noticiaAtualizado) {	
+		
+		Noticia noticiaAtual = buscarOuFalhar(id);
+		
+		noticiaAtual.setTitulo(noticiaAtualizado.getTitulo());
+		noticiaAtual.setConteudo(noticiaAtualizado.getConteudo());
+		noticiaAtual.setAutor(noticiaAtualizado.getAutor());
+		noticiaAtual.setImagem(noticiaAtualizado.getImagem());
+		
+		return noticiaRepository.save(noticiaAtual);
+	}
 	
 	public List<Noticia> listarTodos() { 
 		return noticiaRepository.findAll();

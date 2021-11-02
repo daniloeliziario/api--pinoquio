@@ -10,6 +10,8 @@ import com.eeifpinoquio.domain.model.Noticia;
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface NoticiaMapper {
 	
+	Noticia convert(NoticiaRequest noticia); 
+	
 	NoticiaResponse convert(Noticia noticia);
     
     List<NoticiaResponse> convert(List<Noticia> noticias);

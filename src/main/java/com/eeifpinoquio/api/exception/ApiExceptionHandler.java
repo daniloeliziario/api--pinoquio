@@ -1,13 +1,18 @@
 package com.eeifpinoquio.api.exception;
 
 import java.time.OffsetDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.validation.FieldError;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
@@ -15,7 +20,13 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import com.eeifpinoquio.domain.exception.RecursoEmUsoException;
+import com.eeifpinoquio.domain.exception.RecursoJaExisteException;
 import com.eeifpinoquio.domain.exception.RecursoNaoEncontradoException;
+import com.fasterxml.jackson.databind.JsonMappingException.Reference;
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
+import com.fasterxml.jackson.databind.exc.PropertyBindingException;
+import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
 
 @ControllerAdvice
 class ApiExceptionHandler extends ResponseEntityExceptionHandler {
@@ -33,7 +44,23 @@ class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
 		return super.handleExceptionInternal(ex, problema, headers, status, request);
 	}
-	
+
+	@Override
+	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
+			HttpHeaders headers, HttpStatus status, WebRequest request) {
+
+		String paramentroInvalido = paramentrosInvalidos(ex.getFieldErrors());
+
+		TipoProblema tipoProblema = TipoProblema.ERRO_NA_REQUISICAO;
+
+		String detalhe = String.format("O parâmetro %s. Faça o preenchimento correto e tente novamente",
+				paramentroInvalido);
+
+		Problema problema = criarProblemaBuilder(status, tipoProblema, detalhe);
+
+		return super.handleExceptionInternal(ex, problema, headers, status, request);
+	}
+
 	@Override
 	protected ResponseEntity<Object> handleHttpRequestMethodNotSupported(HttpRequestMethodNotSupportedException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
@@ -93,6 +120,84 @@ class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 		return super.handleExceptionInternal(ex, problema, headers, status, request);
 	}
 
+	@Override
+	protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex,
+			HttpHeaders headers, HttpStatus status, WebRequest request) {
+
+		Throwable rootCause = ex.getRootCause();
+
+		TipoProblema tipoProblema = TipoProblema.ERRO_NA_REQUISICAO;
+
+		if (rootCause instanceof InvalidFormatException) {
+			return handleInvalidFormat((InvalidFormatException) rootCause, headers, status, request, tipoProblema);
+		} else if (rootCause instanceof UnrecognizedPropertyException) {
+			return handlePropertyBinding((PropertyBindingException) rootCause, headers, status, request, tipoProblema);
+		}
+
+		String detalhe = "O corpo da requisição está inválido. Verifique erro de sintaxe";
+
+		Problema problema = criarProblemaBuilder(status, tipoProblema, detalhe);
+
+		return super.handleExceptionInternal(ex, problema, headers, status, request);
+	}
+
+	private ResponseEntity<Object> handleInvalidFormat(InvalidFormatException ex, HttpHeaders headers,
+			HttpStatus status, WebRequest request, TipoProblema tipoProblema) {
+
+		String caminho = concatenarParametros(ex.getPath());
+
+		String detalhe = String.format(
+				"A propriedade '%s' recebeu o valor '%s', que é do tipo inválido. "
+						+ "Corrija e informe um valor compatível com o tipo %s",
+				caminho, ex.getValue(), ex.getTargetType().getSimpleName());
+
+		Problema problema = criarProblemaBuilder(status, tipoProblema, detalhe);
+
+		return super.handleExceptionInternal(ex, problema, headers, status, request);
+	}
+
+	private ResponseEntity<Object> handlePropertyBinding(PropertyBindingException ex, HttpHeaders headers,
+			HttpStatus status, WebRequest request, TipoProblema tipoProblema) {
+
+		String caminho = concatenarParametros(ex.getPath());
+
+		String detalhe = String.format("A propriedade '%s' é inválida. Remova a propriedade e tente novamente",
+				caminho);
+
+		Problema problema = criarProblemaBuilder(status, tipoProblema, detalhe);
+
+		return super.handleExceptionInternal(ex, problema, headers, status, request);
+	}
+
+	@ExceptionHandler(RecursoJaExisteException.class)
+	private ResponseEntity<Object> handleRecursoJaExiste(RecursoJaExisteException ex, WebRequest request) {
+
+		HttpStatus status = HttpStatus.UNPROCESSABLE_ENTITY;
+
+		TipoProblema tipoProblema = TipoProblema.RECURSO_JA_EXISTE;
+
+		String detalhe = String.format("%1$s já existe. Por favor, insira um(a) %1$s com um e-mail diferente",
+				ex.getMessage());
+
+		Problema problema = criarProblemaBuilder(status, tipoProblema, detalhe);
+
+		return super.handleExceptionInternal(ex, problema, new HttpHeaders(), status, request);
+	}
+
+	@ExceptionHandler(RecursoEmUsoException.class)
+	private ResponseEntity<Object> handleRecursoEmUso(RecursoEmUsoException ex, WebRequest request) {
+
+		HttpStatus status = HttpStatus.CONFLICT;
+
+		TipoProblema tipoProblema = TipoProblema.RECURSO_EM_USO;
+
+		String detalhe = String.format("Já existe um(a) %s cadastrado com o mesmo e-mail", ex.getMessage());
+
+		Problema problema = criarProblemaBuilder(status, tipoProblema, detalhe);
+
+		return super.handleExceptionInternal(ex, problema, new HttpHeaders(), status, request);
+	}
+
 	@ExceptionHandler(RecursoNaoEncontradoException.class)
 	private ResponseEntity<Object> handleRecursoNaoEncontrado(RecursoNaoEncontradoException ex, WebRequest request) {
 
@@ -130,6 +235,19 @@ class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 				.detail(detalhe)
 				.timestamp(OffsetDateTime.now())
 				.build();
+	}
+
+	private String concatenarParametros(List<Reference> references) {
+		return references.stream()
+				.map(ref -> ref.getFieldName())
+				.collect(Collectors.joining("."));
+	}
+
+	private String paramentrosInvalidos(List<FieldError> campos) {
+		return campos.stream()
+				.map(camp -> camp.getField() + " " + camp.getDefaultMessage())
+				.limit(1)
+				.collect(Collectors.joining());
 	}
 
 }
