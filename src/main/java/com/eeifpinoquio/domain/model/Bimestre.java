@@ -8,35 +8,34 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import lombok.Data;
 
 @Data
 @Entity
-public class Usuario {
+public class Bimestre {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	private String nome;
+	private String primeiraNota;
 	
-	private String email;
+	private String segundaNota;
 	
-	private String senha;
+	private String terceiraNota;
+	
+	private String recuperacao;
+	
+	private String media;
+	
+	private Integer falta;
 	
 	@CreationTimestamp
 	private OffsetDateTime dataCadastro;
 	
-	private Boolean ativo = Boolean.TRUE;
-	
-	
-	public void ativar() {
-		setAtivo(true);
-	}
-	
-	public void inativar() {
-		setAtivo(false);
-	}
+	@UpdateTimestamp
+	private OffsetDateTime dataAtualizacao;
 
 }
