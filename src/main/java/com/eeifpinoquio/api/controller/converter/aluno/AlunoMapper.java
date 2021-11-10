@@ -13,6 +13,8 @@ public interface AlunoMapper {
 	Aluno convert(AlunoRequest aluno); 
 	
 	AlunoResponse convert(Aluno aluno);
+	
+	AlunoBoletimResponse convertAlunoBoletim(Aluno aluno);
     
     List<AlunoResponse> convert(List<Aluno> alunos);
 

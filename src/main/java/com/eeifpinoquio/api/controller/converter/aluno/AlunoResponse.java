@@ -17,10 +17,10 @@ public class AlunoResponse {
 	
 	private OffsetDateTime dataNascimento;
 	
+	private Boletim boletim;
+	
 	private OffsetDateTime dataCadastro;
 	
-	private OffsetDateTime dataAtualizacao;
-	
-	private Boletim boletim;
+	private OffsetDateTime dataAtualizacao;	
 
 }

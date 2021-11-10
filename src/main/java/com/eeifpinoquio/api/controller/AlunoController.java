@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.eeifpinoquio.api.controller.converter.aluno.AlunoBoletimResponse;
 import com.eeifpinoquio.api.controller.converter.aluno.AlunoMapper;
 import com.eeifpinoquio.api.controller.converter.aluno.AlunoRequest;
 import com.eeifpinoquio.api.controller.converter.aluno.AlunoResponse;
@@ -67,8 +68,8 @@ public class AlunoController {
 	}
 
 	@GetMapping("/{id}")
-	public AlunoResponse buscar(@PathVariable Long id) {
-		return mapper.convert(alunoService.buscarOuFalhar(id));
+	public AlunoBoletimResponse buscar(@PathVariable Long id) {
+		return mapper.convertAlunoBoletim(alunoService.buscarOuFalhar(id));
 	}
 
 }

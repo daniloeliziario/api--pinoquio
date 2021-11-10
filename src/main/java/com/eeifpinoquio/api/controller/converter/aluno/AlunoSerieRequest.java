@@ -1,6 +1,6 @@
 package com.eeifpinoquio.api.controller.converter.aluno;
 
-import java.time.OffsetDateTime;
+import java.util.List;
 
 import javax.validation.constraints.NotBlank;
 
@@ -9,15 +9,12 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class AlunoRequest {
+public class AlunoSerieRequest {
 		
 	@NotBlank
 	private String nome;
-	
+		
 	@NotBlank
-	private OffsetDateTime dataNascimento;
-	
-	@NotBlank
-	private AlunoBoletimRequest boletim;
+	private List<AlunoDisciplinaRequest> disciplinas;
 
 }

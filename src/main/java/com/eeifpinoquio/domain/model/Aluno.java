@@ -24,15 +24,15 @@ public class Aluno {
 	
 	private OffsetDateTime dataNascimento;
 	
+	private Boletim boletim;
+	
 	@CreationTimestamp
 	private OffsetDateTime dataCadastro;
 	
 	@UpdateTimestamp
 	private OffsetDateTime dataAtualizacao;
 	
-	private Boolean ativo = Boolean.TRUE;
-	
-	private Boletim boletim;
+	private Boolean ativo = Boolean.TRUE;	
 	
 	
 	public void ativar() {

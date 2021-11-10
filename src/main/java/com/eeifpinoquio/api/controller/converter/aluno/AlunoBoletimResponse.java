@@ -2,22 +2,21 @@ package com.eeifpinoquio.api.controller.converter.aluno;
 
 import java.time.OffsetDateTime;
 
-import javax.validation.constraints.NotBlank;
+import com.eeifpinoquio.domain.model.Boletim;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class AlunoRequest {
-		
-	@NotBlank
+public class AlunoBoletimResponse {
+	
+	private Long id;
+	
 	private String nome;
 	
-	@NotBlank
 	private OffsetDateTime dataNascimento;
 	
-	@NotBlank
-	private AlunoBoletimRequest boletim;
+	private Boletim boletim;
 
 }

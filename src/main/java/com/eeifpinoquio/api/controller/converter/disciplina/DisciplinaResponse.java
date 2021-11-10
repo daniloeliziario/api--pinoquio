@@ -1,8 +1,8 @@
 package com.eeifpinoquio.api.controller.converter.disciplina;
 
-import java.time.OffsetDateTime;
+import java.util.List;
 
-import com.eeifpinoquio.domain.model.Boletim;
+import com.eeifpinoquio.domain.model.Bimestre;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -15,12 +15,12 @@ public class DisciplinaResponse {
 	
 	private String nome;
 	
-	private OffsetDateTime dataNascimento;
+	private List<Bimestre> primeiroBimestre;
 	
-	private OffsetDateTime dataCadastro;
+	private List<Bimestre> segundoBimestre;
 	
-	private OffsetDateTime dataAtualizacao;
+	private List<Bimestre> terceiroBimestre;
 	
-	private Boletim boletim;
+	private List<Bimestre> quartoBimestre;
 
 }
