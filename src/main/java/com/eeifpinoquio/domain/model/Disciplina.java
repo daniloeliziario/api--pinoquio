@@ -1,7 +1,5 @@
 package com.eeifpinoquio.domain.model;
 
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,12 +17,12 @@ public class Disciplina {
 	
 	private String nome;
 	
-	private List<Bimestre> primeiroBimestre;
+	private Bimestre primeiroBimestre;
 	
-	private List<Bimestre> segundoBimestre;
+	private Bimestre segundoBimestre;
 	
-	private List<Bimestre> terceiroBimestre;
+	private Bimestre terceiroBimestre;
 	
-	private List<Bimestre> quartoBimestre;
+	private Bimestre quartoBimestre;
 
 }
