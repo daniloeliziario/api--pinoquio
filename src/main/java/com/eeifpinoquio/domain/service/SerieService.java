@@ -19,7 +19,7 @@ public class SerieService {
 	@Autowired
 	private SerieRepository serieRepository;
 	
-	private static final String RECURSO_SERIE = "Série";
+	private static final String RECURSO_SERIE = "Serie";
 	
 	
 	@Transactional

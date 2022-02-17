@@ -15,7 +15,7 @@ public class Disciplina {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	private String nome;
+	private Materia materia;
 	
 	private Bimestre primeiroBimestre;
 	

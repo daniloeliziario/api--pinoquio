@@ -1,4 +1,4 @@
-package com.eeifpinoquio.api.controller.converter.disciplina;
+package com.eeifpinoquio.api.controller.converter.materia;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class DisciplinaResponse {
+public class MateriaResponse {
 	
 	private Long id;
 	

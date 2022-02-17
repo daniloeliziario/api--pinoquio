@@ -2,7 +2,7 @@ package com.eeifpinoquio.api.controller.converter.aluno;
 
 import java.time.OffsetDateTime;
 
-import com.eeifpinoquio.domain.model.Boletim;
+import com.eeifpinoquio.domain.model.Disciplina;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -17,6 +17,6 @@ public class AlunoBoletimResponse {
 	
 	private OffsetDateTime dataNascimento;
 	
-	private Boletim boletim;
+	private Disciplina boletim;
 
 }

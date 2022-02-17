@@ -4,6 +4,8 @@ import java.time.OffsetDateTime;
 
 import javax.validation.constraints.NotBlank;
 
+import com.eeifpinoquio.api.controller.converter.alunoBoletim.AlunoBoletimRequest;
+
 import lombok.Getter;
 import lombok.Setter;
 

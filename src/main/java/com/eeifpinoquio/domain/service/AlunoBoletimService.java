@@ -16,12 +16,12 @@ public class AlunoBoletimService {
 	
 	private static final String RECURSO_ALUNO = "Aluno";
 	
-	public Boletim buscarBoletim(Long alunoId) { 
+	public Boletim buscarBoletim(Long alunoId, Long boletimId) { 
 		
 		Aluno aluno = alunoRepository.findById(alunoId)
 				.orElseThrow(() -> new RecursoNaoEncontradoException(RECURSO_ALUNO, alunoId));
 		
-		return aluno.getBoletim();
+		return aluno.getBoletins().get(0);
 	}
 
 }
