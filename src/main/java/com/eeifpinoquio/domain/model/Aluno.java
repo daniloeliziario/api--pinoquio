@@ -23,6 +23,10 @@ public class Aluno {
 	
 	private String nome;
 	
+	private String nomePai;
+	
+	private String nomeMae;
+	
 	private OffsetDateTime dataNascimento;
 	
 	private List<Boletim> boletins;

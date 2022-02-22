@@ -4,27 +4,20 @@ import java.time.OffsetDateTime;
 
 import javax.validation.constraints.NotBlank;
 
-import com.eeifpinoquio.api.controller.converter.serie.SerieRequest;
-
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class AlunoRequest {
-	
+public class AlunoViewRequest {
+		
 	@NotBlank
 	private String nome;
 	
 	@NotBlank
-	private String nomePai;
-	
-	@NotBlank
-	private String nomeMae;
-	
-	@NotBlank
 	private OffsetDateTime dataNascimento;
 	
-	private SerieRequest serie;
+	@NotBlank
+	private AlunoViewRequest boletim;
 
 }

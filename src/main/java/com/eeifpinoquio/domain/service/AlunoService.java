@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.eeifpinoquio.domain.exception.RecursoEmUsoException;
 import com.eeifpinoquio.domain.exception.RecursoNaoEncontradoException;
 import com.eeifpinoquio.domain.model.Aluno;
+import com.eeifpinoquio.domain.model.Boletim;
 import com.eeifpinoquio.domain.repository.AlunoRepository;
 
 @Service
@@ -57,6 +58,14 @@ public class AlunoService {
 	public Aluno buscarOuFalhar(Long id) {
 		return alunoRepository.findById(id)
 				.orElseThrow(() -> new RecursoNaoEncontradoException(RECURSO_ALUNO, id));
+	}
+	
+	public Boletim buscarBoletim(Long alunoId) { 
+		
+		Aluno aluno = alunoRepository.findById(alunoId)
+				.orElseThrow(() -> new RecursoNaoEncontradoException(RECURSO_ALUNO, alunoId));
+		
+		return aluno.getBoletins().get(0);
 	}
 
 }
