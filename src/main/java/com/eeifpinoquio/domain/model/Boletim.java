@@ -17,7 +17,7 @@ public class Boletim {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	private Serie serie;
+	private Aluno aluno;
 	
 	private List<Disciplina> disciplinas;
 

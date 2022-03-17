@@ -1,6 +1,4 @@
-package com.eeifpinoquio.api.controller.converter.serie;
-
-import java.util.List;
+package com.eeifpinoquio.api.controller.converter.boletim;
 
 import javax.validation.constraints.NotBlank;
 
@@ -9,12 +7,12 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class SerieRequest {
-		
+public class AlunoBoletimRequest {
+	
 	@NotBlank
 	private String nome;
 	
 	@NotBlank
-	private List<MateriaSerieRequest> materias;
+	private SerieBoletimRequest serie;
 
 }

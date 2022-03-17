@@ -15,7 +15,5 @@ public interface AlunoMapper {
 	AlunoResponse convert(Aluno aluno);
     
     List<AlunoResponse> convert(List<Aluno> alunos);
-    
-    AlunoViewResponse convertAluno(Aluno aluno);
 
 }

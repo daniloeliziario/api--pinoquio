@@ -10,7 +10,7 @@ import lombok.Data;
 @Data
 @Entity
 public class Disciplina {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -24,5 +24,10 @@ public class Disciplina {
 	private Bimestre terceiroBimestre;
 	
 	private Bimestre quartoBimestre;
+	
+	
+	public Disciplina(Materia materia) {
+		this.materia = materia;
+	}
 
 }

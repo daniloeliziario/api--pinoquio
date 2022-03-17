@@ -2,8 +2,6 @@ package com.eeifpinoquio.api.controller.converter.aluno;
 
 import java.time.OffsetDateTime;
 
-import com.eeifpinoquio.api.controller.converter.serie.SerieResponse;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,12 +17,12 @@ public class AlunoResponse {
 	
 	private String nomeMae;
 	
+	private SerieAlunoResponse serie;
+	
 	private OffsetDateTime dataNascimento;
 	
 	private OffsetDateTime dataCadastro;
 	
-	private OffsetDateTime dataAtualizacao;	
+	private OffsetDateTime dataAtualizacao;		
 	
-	private SerieResponse serie;
-
 }

@@ -5,6 +5,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class BoletimViewResponse {
+public class MateriaAlunoResponse {
+	
+	private String nome;
 
 }

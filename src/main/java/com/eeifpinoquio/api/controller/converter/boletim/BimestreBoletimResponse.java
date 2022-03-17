@@ -1,11 +1,11 @@
-package com.eeifpinoquio.api.controller.converter.aluno;
+package com.eeifpinoquio.api.controller.converter.boletim;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class AlunoBimestreRequest {
+public class BimestreBoletimResponse {
 	
 	private String primeiraNota;
 	

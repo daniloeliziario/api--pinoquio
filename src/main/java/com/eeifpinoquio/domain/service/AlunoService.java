@@ -1,6 +1,7 @@
 package com.eeifpinoquio.domain.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -9,9 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.eeifpinoquio.domain.exception.RecursoEmUsoException;
+import com.eeifpinoquio.domain.exception.RecursoJaExisteException;
 import com.eeifpinoquio.domain.exception.RecursoNaoEncontradoException;
 import com.eeifpinoquio.domain.model.Aluno;
-import com.eeifpinoquio.domain.model.Boletim;
 import com.eeifpinoquio.domain.repository.AlunoRepository;
 
 @Service
@@ -23,7 +24,14 @@ public class AlunoService {
 	private static final String RECURSO_ALUNO = "Aluno";
 	
 	@Transactional
-	public Aluno salvar(Aluno aluno) {			
+	public Aluno salvar(Aluno aluno) {		
+		
+		Optional<Aluno> alunoExistente = alunoRepository.findByNome(aluno.getNome());
+		
+		if(alunoExistente.isPresent()) {
+			throw new RecursoJaExisteException(RECURSO_ALUNO);
+		}
+		
 		return alunoRepository.save(aluno);
 	}
 	
@@ -58,14 +66,6 @@ public class AlunoService {
 	public Aluno buscarOuFalhar(Long id) {
 		return alunoRepository.findById(id)
 				.orElseThrow(() -> new RecursoNaoEncontradoException(RECURSO_ALUNO, id));
-	}
-	
-	public Boletim buscarBoletim(Long alunoId) { 
-		
-		Aluno aluno = alunoRepository.findById(alunoId)
-				.orElseThrow(() -> new RecursoNaoEncontradoException(RECURSO_ALUNO, alunoId));
-		
-		return aluno.getBoletins().get(0);
 	}
 
 }

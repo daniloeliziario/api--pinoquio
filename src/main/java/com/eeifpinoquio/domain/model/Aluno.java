@@ -1,7 +1,6 @@
 package com.eeifpinoquio.domain.model;
 
 import java.time.OffsetDateTime;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,9 +26,9 @@ public class Aluno {
 	
 	private String nomeMae;
 	
-	private OffsetDateTime dataNascimento;
+	private Serie serie;
 	
-	private List<Boletim> boletins;
+	private OffsetDateTime dataNascimento;
 	
 	@CreationTimestamp
 	private OffsetDateTime dataCadastro;
