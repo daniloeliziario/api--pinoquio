@@ -72,9 +72,9 @@ public class BoletimController {
 		return mapper.convert(boletimService.buscarOuFalhar(id));
 	}
 	
-	@GetMapping
-	public List<BoletimResponse> buscarPorAluno(@RequestParam String aluno) {
-		return mapper.convert(boletimService.buscarBoletimAluno(aluno));
-	}
+	/*
+	 * @GetMapping public List<BoletimResponse> buscarPorAluno(@RequestParam String
+	 * aluno) { return mapper.convert(boletimService.buscarBoletimAluno(aluno)); }
+	 */
 
 }

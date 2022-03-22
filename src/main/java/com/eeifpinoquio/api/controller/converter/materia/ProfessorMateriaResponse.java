@@ -5,11 +5,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class MateriaResponse {
-	
-	private Long id;
+public class ProfessorMateriaResponse {
 	
 	private String nome;
-	
-	private ProfessorMateriaResponse professor;
+
 }

@@ -1,9 +1,15 @@
 package com.eeifpinoquio.domain.model;
 
+import java.time.OffsetDateTime;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import lombok.Data;
 
@@ -16,5 +22,14 @@ public class Materia {
 	private Long id;
 	
 	private String nome;
+	
+	@OneToOne
+	private Professor professor;
+	
+	@CreationTimestamp
+	private OffsetDateTime dataCadastro;
+	
+	@UpdateTimestamp
+	private OffsetDateTime dataAtualizacao;
 
 }
