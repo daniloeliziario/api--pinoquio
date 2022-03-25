@@ -10,5 +10,5 @@ import lombok.Setter;
 public class MateriaBoletimRequest {
 	
 	@NotBlank
-	private String nome;
+	private String titulo;
 }

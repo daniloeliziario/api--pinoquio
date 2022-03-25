@@ -1,5 +1,7 @@
 package com.eeifpinoquio.domain.service;
 
+import static org.apache.commons.lang3.ObjectUtils.notEqual;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -9,6 +11,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.eeifpinoquio.domain.exception.PinoquioException;
 import com.eeifpinoquio.domain.exception.RecursoEmUsoException;
 import com.eeifpinoquio.domain.exception.RecursoJaExisteException;
 import com.eeifpinoquio.domain.exception.RecursoNaoEncontradoException;
@@ -39,6 +42,12 @@ public class ProfessorService {
 	public Professor alterar(Long id, Professor professorAtualizado) {	
 		
 		Professor professorAtual = buscarOuFalhar(id);
+		
+		Optional<Professor> professorExistente = professorRepository.findByNome(professorAtualizado.getNome());
+		
+		if(professorExistente.isPresent() && notEqual(professorAtual, professorExistente.get())) {
+			throw new PinoquioException(RECURSO_PROFESSOR);
+		}
 		
 		professorAtual.setNome(professorAtualizado.getNome());
 		

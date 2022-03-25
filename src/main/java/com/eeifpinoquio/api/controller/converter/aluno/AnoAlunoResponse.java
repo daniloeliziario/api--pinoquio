@@ -7,9 +7,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class SerieAlunoResponse {
+public class AnoAlunoResponse {
 	
-	private String nome;
+	private String titulo;
 	
 	private List<MateriaAlunoResponse> materias;
 

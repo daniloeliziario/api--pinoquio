@@ -1,4 +1,4 @@
-package com.eeifpinoquio.api.controller.converter.serie;
+package com.eeifpinoquio.api.controller.converter.ano;
 
 import java.util.List;
 
@@ -9,12 +9,12 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class SerieRequest {
+public class AnoRequest {
 		
 	@NotBlank
-	private String nome;
+	private String titulo;
 	
 	@NotBlank
-	private List<MateriaSerieRequest> materias;
+	private List<MateriaAnoRequest> materias;
 
 }

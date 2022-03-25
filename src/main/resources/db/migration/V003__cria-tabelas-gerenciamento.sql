@@ -8,9 +8,9 @@ create table professor (
 	
 ) engine=InnoDB default charset=utf8;
 
-create table serie (
+create table ano (
 	id bigint not null auto_increment,
-	nome varchar(80) not null,
+	titulo varchar(80) not null,
 	data_cadastro datetime not null,
 	data_atualizacao datetime not null,
 	
@@ -20,14 +20,15 @@ create table serie (
 
 create table materia (
 	id bigint not null auto_increment,
-	nome varchar(80) not null,
-	serie_id bigint not null,
+	titulo varchar(80) not null,
+	descricao varchar(250) not null,
+	ano_id bigint,
 	professor_id bigint not null,
 	data_cadastro datetime not null,
 	data_atualizacao datetime not null,
 	
 	primary key (id),
-	constraint fk_materia_serie foreign key (serie_id) references serie (id),
+	constraint fk_materia_ano foreign key (ano_id) references ano (id),
 	constraint fk_materia_professor foreign key (professor_id) references professor (id)
 	
 ) engine=InnoDB default charset=utf8;
@@ -71,20 +72,19 @@ create table aluno (
 	nome varchar(80) not null,
 	nome_pai varchar(80) not null,
 	nome_mae varchar(80) not null,
-	serie_id bigint not null,
-	data_confirmacao datetime null,
+	data_nascimento datetime null,
+	ano_id bigint not null,	
 	data_cadastro datetime not null,
 	data_atualizacao datetime not null,
 	ativo tinyint(1) not null,
 	
 	primary key (id),
-	constraint fk_aluno_serie foreign key (serie_id) references serie (id)
+	constraint fk_aluno_ano foreign key (ano_id) references ano (id)
 	
 ) engine=InnoDB default charset=utf8;
 
 create table boletim (
 	id bigint not null auto_increment,
-	nome varchar(80) not null,
 	aluno_id bigint not null,
 	data_cadastro datetime not null,
 	data_atualizacao datetime not null,

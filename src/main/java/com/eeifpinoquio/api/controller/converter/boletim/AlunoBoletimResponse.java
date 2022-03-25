@@ -9,5 +9,5 @@ public class AlunoBoletimResponse {
 
 	private String nome;
 	
-	private SerieBoletimResponse serie;
+	private AnoBoletimResponse ano;
 }

@@ -7,6 +7,6 @@ import lombok.Setter;
 @Setter
 public class MateriaBoletimResponse {
 	
-	private String nome;
+	private String titulo;
 
 }

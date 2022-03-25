@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class SerieBoletimResponse {
+public class AnoBoletimResponse {
 
-	private String nome;
+	private String titulo;
 }

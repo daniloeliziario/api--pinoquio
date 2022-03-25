@@ -4,12 +4,12 @@ public class PinoquioException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
 		
-	public PinoquioException(String recurso) {
-		super(recurso);
+	public PinoquioException(String mensagem) {
+		super(mensagem);
 	}
 	
-	public PinoquioException(String recurso, Throwable causa) {
-		super(recurso, causa);
+	public PinoquioException(String mensagem, Throwable causa) {
+		super(mensagem, causa);
 	}
 
 }

@@ -9,7 +9,9 @@ public class MateriaResponse {
 	
 	private Long id;
 	
-	private String nome;
+	private String titulo;
+	
+	private String descricao;
 	
 	private ProfessorMateriaResponse professor;
 }

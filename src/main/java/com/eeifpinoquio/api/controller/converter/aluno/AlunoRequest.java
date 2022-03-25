@@ -1,8 +1,9 @@
 package com.eeifpinoquio.api.controller.converter.aluno;
 
-import java.time.OffsetDateTime;
+import java.time.LocalDate;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -20,12 +21,10 @@ public class AlunoRequest {
 	@NotBlank
 	private String nomeMae;
 	
-	@NotBlank
-	private SerieAlunoRequest serie;
+	@NotNull
+	private LocalDate dataNascimento;
 	
-	@NotBlank
-	private OffsetDateTime dataNascimento;
-	
-	
+	@NotNull
+	private AnoAlunoRequest ano;	
 
 }

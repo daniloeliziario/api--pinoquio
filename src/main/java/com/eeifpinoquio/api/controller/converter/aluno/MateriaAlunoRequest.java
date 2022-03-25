@@ -10,6 +10,6 @@ import lombok.Setter;
 public class MateriaAlunoRequest {
 	
 	@NotBlank
-	private String nome;
+	private String titulo;
 
 }

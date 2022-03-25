@@ -5,11 +5,11 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.eeifpinoquio.domain.model.Serie;
+import com.eeifpinoquio.domain.model.Ano;
 
 @Repository
-public interface SerieRepository extends JpaRepository<Serie, Long>{
+public interface AnoRepository extends JpaRepository<Ano, Long>{
 	
-	Optional<Serie> findByNome(String nome);
+	Optional<Ano> findByTitulo(String titulo);
 
 }

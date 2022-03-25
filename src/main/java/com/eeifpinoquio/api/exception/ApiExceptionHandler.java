@@ -20,6 +20,7 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import com.eeifpinoquio.domain.exception.PinoquioException;
 import com.eeifpinoquio.domain.exception.RecursoEmUsoException;
 import com.eeifpinoquio.domain.exception.RecursoJaExisteException;
 import com.eeifpinoquio.domain.exception.RecursoNaoEncontradoException;
@@ -168,6 +169,20 @@ class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
 		return super.handleExceptionInternal(ex, problema, headers, status, request);
 	}
+	
+	@ExceptionHandler(PinoquioException.class)
+	private ResponseEntity<Object> handlePinoquioException(PinoquioException ex, WebRequest request) {
+
+		HttpStatus status = HttpStatus.BAD_REQUEST;
+
+		TipoProblema tipoProblema = TipoProblema.ERRO_NEGOCIO;
+
+		String detalhe = String.format("Já existe um(a) %s cadastrado com esse campo", ex.getMessage());
+
+		Problema problema = criarProblemaBuilder(status, tipoProblema, detalhe);
+
+		return super.handleExceptionInternal(ex, problema, new HttpHeaders(), status, request);
+	}
 
 	@ExceptionHandler(RecursoJaExisteException.class)
 	private ResponseEntity<Object> handleRecursoJaExiste(RecursoJaExisteException ex, WebRequest request) {
@@ -176,7 +191,7 @@ class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
 		TipoProblema tipoProblema = TipoProblema.RECURSO_JA_EXISTE;
 
-		String detalhe = String.format("%1$s já existe. Por favor, insira um(a) %1$s com um e-mail diferente",
+		String detalhe = String.format("%1$s já existe. Por favor, insira um(a) %1$s com um campo diferente",
 				ex.getMessage());
 
 		Problema problema = criarProblemaBuilder(status, tipoProblema, detalhe);
@@ -191,7 +206,7 @@ class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
 		TipoProblema tipoProblema = TipoProblema.RECURSO_EM_USO;
 
-		String detalhe = String.format("Já existe um(a) %s cadastrado com o mesmo e-mail", ex.getMessage());
+		String detalhe = String.format("O recurso %s está sendo utilizado por outro recurso e não é possível executar a operação", ex.getMessage());
 
 		Problema problema = criarProblemaBuilder(status, tipoProblema, detalhe);
 

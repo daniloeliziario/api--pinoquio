@@ -16,13 +16,13 @@ import lombok.Data;
 
 @Data
 @Entity
-public class Serie {
+public class Ano {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	private String nome;
+	private String titulo;
 	
 	@OneToMany
 	private List<Materia> materias;

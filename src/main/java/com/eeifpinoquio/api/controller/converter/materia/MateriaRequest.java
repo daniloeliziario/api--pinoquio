@@ -1,7 +1,7 @@
 package com.eeifpinoquio.api.controller.converter.materia;
 
 import javax.validation.constraints.NotBlank;
-
+import javax.validation.constraints.NotNull;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -11,8 +11,12 @@ import lombok.Setter;
 public class MateriaRequest {
 		
 	@NotBlank
-	private String nome;
+	private String titulo;
 	
+	@NotBlank
+	private String descricao;
+	
+	@NotNull
 	private ProfessorMateriaRequest professor;
 
 }

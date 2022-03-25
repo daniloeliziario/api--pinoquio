@@ -46,12 +46,12 @@ public class BoletimService {
 		
 		Optional<Boletim> boletimBanco = boletimRepository.findByAluno(aluno);
 		
-		if(boletimBanco.isPresent() && Objects.equals(alunoBanco.get().getSerie(), boletimBanco.get().getAluno().getSerie())) {
+		if(boletimBanco.isPresent() && Objects.equals(alunoBanco.get().getAno(), boletimBanco.get().getAluno().getAno())) {
 			throw new PinoquioException(RECURSO_BOLETIM);	
 		}
 		
 		boletim.setAluno(alunoBanco.get());
-		boletim.setDisciplinas(alunoBanco.get().getSerie().getMaterias()
+		boletim.setDisciplinas(alunoBanco.get().getAno().getMaterias()
 				.stream()
 				.map(materia -> new Disciplina(materia))
 				.collect(Collectors.toList()));

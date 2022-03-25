@@ -10,10 +10,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class SerieBoletimRequest {
+public class AnoBoletimRequest {
 	
 	@NotBlank
-	private String nome;
+	private String titulo;
 	
 	@NotBlank
 	private List<MateriaBoletimRequest> materias;

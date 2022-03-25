@@ -1,5 +1,6 @@
 package com.eeifpinoquio.domain.model;
 
+import java.time.LocalDate;
 import java.time.OffsetDateTime;
 
 import javax.persistence.Entity;
@@ -27,10 +28,10 @@ public class Aluno {
 	
 	private String nomeMae;
 	
-	@ManyToOne
-	private Serie serie;
+	private LocalDate dataNascimento;
 	
-	private OffsetDateTime dataNascimento;
+	@ManyToOne
+	private Ano ano;	
 	
 	@CreationTimestamp
 	private OffsetDateTime dataCadastro;

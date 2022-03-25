@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.eeifpinoquio.domain.exception.RecursoEmUsoException;
+import com.eeifpinoquio.domain.exception.PinoquioException;
 import com.eeifpinoquio.domain.exception.RecursoJaExisteException;
 import com.eeifpinoquio.domain.exception.RecursoNaoEncontradoException;
 import com.eeifpinoquio.domain.model.Usuario;
@@ -42,7 +42,7 @@ public class UsuarioService {
 		Optional<Usuario> usuarioExistente = usuarioRepository.findByEmail(usuarioAtualizado.getEmail());
 		
 		if(usuarioExistente.isPresent() && notEqual(usuarioAtual, usuarioExistente.get())) {
-			throw new RecursoEmUsoException(RECURSO_USUARIO);
+			throw new PinoquioException(RECURSO_USUARIO);
 		}
 		
 		usuarioAtual.setNome(usuarioAtualizado.getNome());

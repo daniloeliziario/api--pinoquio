@@ -1,4 +1,4 @@
-package com.eeifpinoquio.api.controller.converter.serie;
+package com.eeifpinoquio.api.controller.converter.ano;
 
 import javax.validation.constraints.NotBlank;
 
@@ -7,9 +7,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class MateriaSerieRequest {
+public class MateriaAnoRequest {
 	
 	@NotBlank
-	private String nome;
+	private String titulo;
 
 }

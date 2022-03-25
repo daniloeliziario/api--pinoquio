@@ -1,5 +1,6 @@
 package com.eeifpinoquio.api.controller.converter.aluno;
 
+import java.time.LocalDate;
 import java.time.OffsetDateTime;
 
 import lombok.Getter;
@@ -17,9 +18,9 @@ public class AlunoResponse {
 	
 	private String nomeMae;
 	
-	private SerieAlunoResponse serie;
+	private LocalDate dataNascimento;
 	
-	private OffsetDateTime dataNascimento;
+	private AnoAlunoResponse ano;	
 	
 	private OffsetDateTime dataCadastro;
 	

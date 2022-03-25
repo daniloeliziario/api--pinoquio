@@ -21,7 +21,9 @@ public class Materia {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	private String nome;
+	private String titulo;
+	
+	private String descricao;
 	
 	@OneToOne
 	private Professor professor;

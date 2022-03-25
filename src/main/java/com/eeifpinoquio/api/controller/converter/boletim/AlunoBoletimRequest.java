@@ -13,6 +13,6 @@ public class AlunoBoletimRequest {
 	private String nome;
 	
 	@NotBlank
-	private SerieBoletimRequest serie;
+	private AnoBoletimRequest ano;
 
 }

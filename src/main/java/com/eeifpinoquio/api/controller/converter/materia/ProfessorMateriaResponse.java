@@ -7,6 +7,8 @@ import lombok.Setter;
 @Setter
 public class ProfessorMateriaResponse {
 	
+	private Long id;
+	
 	private String nome;
 
 }
