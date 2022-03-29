@@ -1,6 +1,8 @@
 package com.eeifpinoquio.domain.service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -9,8 +11,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.eeifpinoquio.domain.exception.RecursoEmUsoException;
+import com.eeifpinoquio.domain.exception.RecursoJaExisteException;
 import com.eeifpinoquio.domain.exception.RecursoNaoEncontradoException;
 import com.eeifpinoquio.domain.model.Ano;
+import com.eeifpinoquio.domain.model.Materia;
 import com.eeifpinoquio.domain.repository.AnoRepository;
 
 @Service
@@ -19,11 +23,27 @@ public class AnoService {
 	@Autowired
 	private AnoRepository anoRepository;
 	
+	@Autowired
+	private MateriaService materiaService;
+	
 	private static final String RECURSO_ANO = "Ano";
 	
 	
 	@Transactional
 	public Ano salvar(Ano ano) {			
+		
+		Optional<Ano> anoExistente = anoRepository.findByTitulo(ano.getTitulo());
+		
+		if(anoExistente.isPresent()) {
+			throw new RecursoJaExisteException(RECURSO_ANO);
+		}
+		
+		List<Materia> materias = ano.getMaterias().stream()
+				.map(materia -> materiaService.buscarOuFalhar(materia.getId()))
+				.collect(Collectors.toList());
+		
+		ano.setMaterias(materias);
+		
 		return anoRepository.save(ano);
 	}
 	

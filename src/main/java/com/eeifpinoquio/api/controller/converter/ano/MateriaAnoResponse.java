@@ -7,6 +7,10 @@ import lombok.Setter;
 @Setter
 public class MateriaAnoResponse {
 	
+	private Long id;
+	
 	private String titulo;
+	
+	private String descricao;
 
 }
