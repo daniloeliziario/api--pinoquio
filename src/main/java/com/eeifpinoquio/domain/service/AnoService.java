@@ -1,5 +1,7 @@
 package com.eeifpinoquio.domain.service;
 
+import static org.apache.commons.lang3.ObjectUtils.notEqual;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -10,6 +12,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.eeifpinoquio.domain.exception.PinoquioException;
 import com.eeifpinoquio.domain.exception.RecursoEmUsoException;
 import com.eeifpinoquio.domain.exception.RecursoJaExisteException;
 import com.eeifpinoquio.domain.exception.RecursoNaoEncontradoException;
@@ -48,11 +51,22 @@ public class AnoService {
 	}
 	
 	@Transactional
-	public Ano alterar(Long id, Ano anoAtualizado) {	
+	public Ano alterar(Long id, Ano anoAtualizado) {
 		
 		Ano anoAtual = buscarOuFalhar(id);
 		
+		Optional<Ano> anoExistente = anoRepository.findByTitulo(anoAtualizado.getTitulo());
+		
+		if(anoExistente.isPresent() && notEqual(anoAtual, anoExistente.get())) {
+			throw new PinoquioException(RECURSO_ANO);
+		}
+		
+		List<Materia> materias = anoAtualizado.getMaterias().stream()
+				.map(materia -> materiaService.buscarOuFalhar(materia.getId()))
+				.collect(Collectors.toList());
+		
 		anoAtual.setTitulo(anoAtualizado.getTitulo());
+		anoAtual.setMaterias(materias);
 		
 		return anoRepository.save(anoAtual);
 	}
