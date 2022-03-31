@@ -1,7 +1,5 @@
 package com.eeifpinoquio.api.controller.converter.aluno;
 
-import java.util.List;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,8 +7,8 @@ import lombok.Setter;
 @Setter
 public class AnoAlunoResponse {
 	
-	private String titulo;
+	private Long id;
 	
-	private List<MateriaAlunoResponse> materias;
+	private String titulo;
 
 }

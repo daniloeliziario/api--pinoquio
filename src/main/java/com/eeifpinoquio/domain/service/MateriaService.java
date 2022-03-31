@@ -41,9 +41,9 @@ public class MateriaService {
 		}
 		
 		Long professorId = materia.getProfessor().getId();		
-		Professor professorExistente = professorService.buscarOuFalhar(professorId);
+		Professor professorAtual = professorService.buscarOuFalhar(professorId);
 		
-		materia.setProfessor(professorExistente);
+		materia.setProfessor(professorAtual);
 		
 		return materiaRepository.save(materia);
 	}
@@ -60,11 +60,11 @@ public class MateriaService {
 		}
 		
 		Long professorId = materiaAtualizado.getProfessor().getId();		
-		Professor professorExistente = professorService.buscarOuFalhar(professorId);		
+		Professor professorAtual = professorService.buscarOuFalhar(professorId);		
 		
 		materiaAtual.setTitulo(materiaAtualizado.getTitulo());
 		materiaAtual.setDescricao(materiaAtualizado.getDescricao());
-		materiaAtual.setProfessor(professorExistente);
+		materiaAtual.setProfessor(professorAtual);
 		
 		return materiaRepository.save(materiaAtual);
 	}

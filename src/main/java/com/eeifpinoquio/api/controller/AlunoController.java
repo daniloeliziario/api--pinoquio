@@ -60,6 +60,18 @@ public class AlunoController {
 	public void remover(@PathVariable Long id) {
 		alunoService.excluir(id);	
 	}
+	
+	@PutMapping("/{id}/ativo")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void ativar(@PathVariable Long id) {
+		alunoService.ativar(id);
+	}
+	
+	@DeleteMapping("/{id}/ativo")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void inativar(@PathVariable Long id) {
+		alunoService.inativar(id);
+	}
 
 	@GetMapping
 	public List<AlunoResponse> listar() {

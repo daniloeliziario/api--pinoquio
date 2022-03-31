@@ -42,7 +42,7 @@ public class AnoService {
 		}
 		
 		List<Materia> materias = ano.getMaterias().stream()
-				.map(materia -> materiaService.buscarOuFalhar(materia.getId()))
+				.map(materiaAtual -> materiaService.buscarOuFalhar(materiaAtual.getId()))
 				.collect(Collectors.toList());
 		
 		ano.setMaterias(materias);
@@ -62,7 +62,7 @@ public class AnoService {
 		}
 		
 		List<Materia> materias = anoAtualizado.getMaterias().stream()
-				.map(materia -> materiaService.buscarOuFalhar(materia.getId()))
+				.map(materiaAtual -> materiaService.buscarOuFalhar(materiaAtual.getId()))
 				.collect(Collectors.toList());
 		
 		anoAtual.setTitulo(anoAtualizado.getTitulo());

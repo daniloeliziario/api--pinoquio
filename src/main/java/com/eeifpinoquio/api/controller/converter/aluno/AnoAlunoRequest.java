@@ -1,8 +1,5 @@
 package com.eeifpinoquio.api.controller.converter.aluno;
 
-import java.util.List;
-
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import lombok.Getter;
@@ -12,10 +9,7 @@ import lombok.Setter;
 @Setter
 public class AnoAlunoRequest {
 	
-	@NotBlank
-	private String titulo;
-	
 	@NotNull
-	private List<MateriaAlunoRequest> materias;
+	private Long id;
 
 }
