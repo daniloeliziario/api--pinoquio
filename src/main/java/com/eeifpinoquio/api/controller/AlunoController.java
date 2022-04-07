@@ -42,35 +42,35 @@ public class AlunoController {
 
 		AlunoResponse alunoResponse = mapper.convert(alunoService.salvar(aluno));
 
-		ResponseHeaderUtil.adicionarLocation(alunoResponse.getId());
+		ResponseHeaderUtil.adicionarLocation(alunoResponse.getMatricula());
 
 		return alunoResponse;
 	}
 
-	@PutMapping("/{id}")
-	public AlunoResponse atualizar(@PathVariable Long id, @RequestBody @Valid AlunoRequest alunoRequest) {
+	@PutMapping("/{matricula}")
+	public AlunoResponse atualizar(@PathVariable Long matricula, @RequestBody @Valid AlunoRequest alunoRequest) {
 
 		Aluno alunoAtualizado = mapper.convert(alunoRequest);
 
-		return mapper.convert(alunoService.alterar(id, alunoAtualizado));
+		return mapper.convert(alunoService.alterar(matricula, alunoAtualizado));
 	}
 	
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/{matricula}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void remover(@PathVariable Long id) {
-		alunoService.excluir(id);	
+	public void remover(@PathVariable Long matricula) {
+		alunoService.excluir(matricula);	
 	}
 	
-	@PutMapping("/{id}/ativo")
+	@PutMapping("/{matricula}/ativo")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void ativar(@PathVariable Long id) {
-		alunoService.ativar(id);
+	public void ativar(@PathVariable Long matricula) {
+		alunoService.ativar(matricula);
 	}
 	
-	@DeleteMapping("/{id}/ativo")
+	@DeleteMapping("/{matricula}/ativo")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void inativar(@PathVariable Long id) {
-		alunoService.inativar(id);
+	public void inativar(@PathVariable Long matricula) {
+		alunoService.inativar(matricula);
 	}
 
 	@GetMapping
@@ -78,9 +78,9 @@ public class AlunoController {
 		return mapper.convert(alunoService.listarTodos());
 	}
 
-	@GetMapping("/{id}")
-	public AlunoResponse buscar(@PathVariable Long id) {
-		return mapper.convert(alunoService.buscarOuFalhar(id));
+	@GetMapping("/{matricula}")
+	public AlunoResponse buscar(@PathVariable Long matricula) {
+		return mapper.convert(alunoService.buscarOuFalhar(matricula));
 	}
 
 }

@@ -20,7 +20,7 @@ public class Aluno {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Long matricula;
 	
 	private String nome;
 	

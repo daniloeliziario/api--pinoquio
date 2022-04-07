@@ -7,7 +7,9 @@ import lombok.Setter;
 @Setter
 public class DisciplinaBoletimResponse {
 	
-	private MateriaBoletimResponse materia;
+	private Long id;
+	
+	private String materia;
 	
 	private BimestreBoletimResponse primeiroBimestre;
 	

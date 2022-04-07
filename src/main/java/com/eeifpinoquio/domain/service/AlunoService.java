@@ -48,9 +48,9 @@ public class AlunoService {
 	}
 	
 	@Transactional
-	public Aluno alterar(Long id, Aluno alunoAtualizado) {	
+	public Aluno alterar(Long matricula, Aluno alunoAtualizado) {	
 		
-		Aluno alunoAtual = buscarOuFalhar(id);
+		Aluno alunoAtual = buscarOuFalhar(matricula);
 		
 		Optional<Aluno> alunoExistente = alunoRepository.findByNome(alunoAtualizado.getNome());
 		
@@ -71,13 +71,13 @@ public class AlunoService {
 	}
 	
 	@Transactional
-	public void excluir(Long id) {
+	public void excluir(Long matricula) {
 		
 		try {
-			alunoRepository.deleteById(id);
+			alunoRepository.deleteById(matricula);
 			alunoRepository.flush();
 		} catch (EmptyResultDataAccessException e) {
-			throw new RecursoNaoEncontradoException(RECURSO_ALUNO, id);
+			throw new RecursoNaoEncontradoException(RECURSO_ALUNO, matricula);
 		
 		} catch (DataIntegrityViolationException e) {
 			throw new RecursoEmUsoException(RECURSO_ALUNO);
@@ -85,17 +85,17 @@ public class AlunoService {
 	}
 	
 	@Transactional
-	public void ativar(Long alunoId) {
+	public void ativar(Long matricula) {
 		
-		Aluno alunoAtual = buscarOuFalhar(alunoId);
+		Aluno alunoAtual = buscarOuFalhar(matricula);
 		
 		alunoAtual.ativar();
 	}
 	
 	@Transactional
-	public void inativar(Long alunoId) {
+	public void inativar(Long matricula) {
 		
-		Aluno alunoAtual = buscarOuFalhar(alunoId);
+		Aluno alunoAtual = buscarOuFalhar(matricula);
 		
 		alunoAtual.inativar();
 	}	
@@ -104,9 +104,9 @@ public class AlunoService {
 		return alunoRepository.findAll();
 	}
 	
-	public Aluno buscarOuFalhar(Long id) {
-		return alunoRepository.findById(id)
-				.orElseThrow(() -> new RecursoNaoEncontradoException(RECURSO_ALUNO, id));
+	public Aluno buscarOuFalhar(Long matricula) {
+		return alunoRepository.findById(matricula)
+				.orElseThrow(() -> new RecursoNaoEncontradoException(RECURSO_ALUNO, matricula));
 	}
 
 }

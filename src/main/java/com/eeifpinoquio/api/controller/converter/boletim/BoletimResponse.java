@@ -11,7 +11,7 @@ public class BoletimResponse {
 	
 	private Long id;
 	
-	private AlunoBoletimResponse aluno;
+	private Long aluno;
 	
 	private List<DisciplinaBoletimResponse> disciplinas;
 

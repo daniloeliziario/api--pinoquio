@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 public class AlunoResponse {
 	
-	private Long id;
+	private Long matricula;
 	
 	private String nome;
 	

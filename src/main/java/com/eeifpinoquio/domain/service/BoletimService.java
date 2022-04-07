@@ -1,8 +1,6 @@
 package com.eeifpinoquio.domain.service;
 
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +13,9 @@ import com.eeifpinoquio.domain.exception.PinoquioException;
 import com.eeifpinoquio.domain.exception.RecursoEmUsoException;
 import com.eeifpinoquio.domain.exception.RecursoNaoEncontradoException;
 import com.eeifpinoquio.domain.model.Aluno;
+import com.eeifpinoquio.domain.model.Ano;
 import com.eeifpinoquio.domain.model.Boletim;
 import com.eeifpinoquio.domain.model.Disciplina;
-import com.eeifpinoquio.domain.repository.AlunoRepository;
 import com.eeifpinoquio.domain.repository.BoletimRepository;
 
 @Service
@@ -27,34 +25,33 @@ public class BoletimService {
 	private BoletimRepository boletimRepository;
 	
 	@Autowired
-	private AlunoRepository alunoRepository;
+	private AlunoService alunoService;
 	
-	private static final String RECURSO_ALUNO = "Aluno";
+	@Autowired
+	private AnoService anoService;
 	
 	private static final String RECURSO_BOLETIM = "Boletim";	
 	
 	@Transactional
 	public Boletim salvar(Boletim boletim) {	
 		
-		Aluno aluno = boletim.getAluno();
+		Long alunoMatricula = boletim.getAluno();
+		Aluno alunoAtual = alunoService.buscarOuFalhar(alunoMatricula);
 		
-		Optional<Aluno> alunoBanco = alunoRepository.findByNome(aluno.getNome());
-		
-		if(!alunoBanco.isPresent()) {
-			throw new PinoquioException(RECURSO_ALUNO);	
+		if(alunoAtual.getAtivo().equals(false)) {
+			throw new PinoquioException(RECURSO_BOLETIM);
 		}
 		
-		Optional<Boletim> boletimBanco = boletimRepository.findByAluno(aluno);
+		String anoTitulo = boletim.getAno();
+		Ano anoAtual = anoService.buscarOuFalhar(anoTitulo);
 		
-		if(boletimBanco.isPresent() && Objects.equals(alunoBanco.get().getAno(), boletimBanco.get().getAluno().getAno())) {
-			throw new PinoquioException(RECURSO_BOLETIM);	
-		}
-		
-		boletim.setAluno(alunoBanco.get());
-		boletim.setDisciplinas(alunoBanco.get().getAno().getMaterias()
+		List<Disciplina> disciplinas = anoAtual.getMaterias()
 				.stream()
-				.map(materia -> new Disciplina(materia))
-				.collect(Collectors.toList()));
+				.map(materia -> new Disciplina(materia.getTitulo()))
+				.collect(Collectors.toList());
+		
+		boletim.setDisciplinas(disciplinas);
+		boletim.setAno(anoAtual.getTitulo());
 		
 		return boletimRepository.save(boletim);
 	}
@@ -88,10 +85,6 @@ public class BoletimService {
 	public Boletim buscarOuFalhar(Long id) {
 		return boletimRepository.findById(id)
 				.orElseThrow(() -> new RecursoNaoEncontradoException(RECURSO_BOLETIM, id));
-	}
-	
-	public List<Boletim> buscarBoletimAluno(String aluno) {
-		return boletimRepository.findBoletimAluno(aluno);
 	}
 
 }

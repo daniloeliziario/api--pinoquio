@@ -1,6 +1,7 @@
 package com.eeifpinoquio.api.controller.converter.boletim;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -9,7 +10,10 @@ import lombok.Setter;
 @Setter
 public class BoletimRequest {
 	
+	@NotNull
+	private Long aluno;
+	
 	@NotBlank
-	private AlunoBoletimRequest aluno;
+	private String ano;
 
 }

@@ -6,7 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -22,8 +21,7 @@ public class Disciplina {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@ManyToOne
-	private Materia materia;
+	private String materia;
 	
 	@OneToOne
 	private Bimestre primeiroBimestre;
@@ -44,7 +42,7 @@ public class Disciplina {
 	private OffsetDateTime dataAtualizacao;
 	
 	
-	public Disciplina(Materia materia) {
+	public Disciplina(String materia) {
 		this.materia = materia;
 	}
 

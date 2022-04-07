@@ -7,6 +7,8 @@ import lombok.Setter;
 @Setter
 public class BimestreBoletimResponse {
 	
+	private Long id;
+	
 	private String primeiraNota;
 	
 	private String segundaNota;

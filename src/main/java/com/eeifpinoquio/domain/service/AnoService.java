@@ -93,5 +93,10 @@ public class AnoService {
 		return anoRepository.findById(id)
 				.orElseThrow(() -> new RecursoNaoEncontradoException(RECURSO_ANO, id));
 	}
+	
+	public Ano buscarOuFalhar(String titulo) {
+		return anoRepository.findByTitulo(titulo)
+				.orElseThrow(() -> new RecursoNaoEncontradoException(RECURSO_ANO, 1l));
+	}
 
 }

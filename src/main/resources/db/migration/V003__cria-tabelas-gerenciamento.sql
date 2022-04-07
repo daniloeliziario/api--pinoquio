@@ -50,7 +50,7 @@ create table bimestre (
 
 create table disciplina (
 	id bigint not null auto_increment,
-	materia_id bigint not null,
+	materia varchar(80) not null,
 	primeiro_bimestre_id bigint,
 	segundo_bimestre_id bigint,
 	terceiro_bimestre_id bigint,
@@ -59,7 +59,6 @@ create table disciplina (
 	data_atualizacao datetime not null,
 	
 	primary key (id),
-	constraint fk_disciplina_materia foreign key (materia_id) references materia (id),
 	constraint fk_disciplina_primeiro_bimestre foreign key (primeiro_bimestre_id) references bimestre (id),
 	constraint fk_disciplina_segundo_bimestre foreign key (segundo_bimestre_id) references bimestre (id),
 	constraint fk_disciplina_terceiro_bimestre foreign key (terceiro_bimestre_id) references bimestre (id),
@@ -68,7 +67,7 @@ create table disciplina (
 ) engine=InnoDB default charset=utf8;
 
 create table aluno (
-	id bigint not null auto_increment,
+	matricula bigint not null auto_increment,
 	nome varchar(80) not null,
 	nome_pai varchar(80) not null,
 	nome_mae varchar(80) not null,
@@ -78,19 +77,19 @@ create table aluno (
 	data_atualizacao datetime not null,
 	ativo tinyint(1) not null,
 	
-	primary key (id),
+	primary key (matricula),
 	constraint fk_aluno_ano foreign key (ano_id) references ano (id)
 	
 ) engine=InnoDB default charset=utf8;
 
 create table boletim (
 	id bigint not null auto_increment,
-	aluno_id bigint not null,
+	aluno bigint not null,
+	ano varchar(80) not null,
 	data_cadastro datetime not null,
 	data_atualizacao datetime not null,
 	
-	primary key (id),
-	constraint fk_boletim_aluno foreign key (aluno_id) references aluno (id)
+	primary key (id)
 	
 ) engine=InnoDB default charset=utf8;
 
