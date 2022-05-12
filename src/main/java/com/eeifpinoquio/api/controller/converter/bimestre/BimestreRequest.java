@@ -1,13 +1,11 @@
-package com.eeifpinoquio.api.controller.converter.boletim;
+package com.eeifpinoquio.api.controller.converter.bimestre;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class BimestreBoletimResponse {
-	
-	private Long id;
+public class BimestreRequest {
 	
 	private Double primeiraNota;
 	
@@ -16,9 +14,6 @@ public class BimestreBoletimResponse {
 	private Double terceiraNota;
 	
 	private Double recuperacao;
-	
-	private Double media;
-	
+		
 	private Integer falta;
-
 }

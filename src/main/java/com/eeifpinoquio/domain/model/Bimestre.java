@@ -20,15 +20,15 @@ public class Bimestre {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	private String primeiraNota;
+	private Double primeiraNota;
 	
-	private String segundaNota;
+	private Double segundaNota;
 	
-	private String terceiraNota;
+	private Double terceiraNota;
 	
-	private String recuperacao;
+	private Double recuperacao;
 	
-	private String media;
+	private Double media;
 	
 	private Integer falta;
 	
@@ -37,5 +37,20 @@ public class Bimestre {
 	
 	@UpdateTimestamp
 	private OffsetDateTime dataAtualizacao;
+	
+	
+	public Bimestre() {
+		
+	}
+	
+	public Bimestre(Long id, Double primeiraNota, Double segundaNota, Double terceiraNota, Double recuperacao, Integer falta) {
+		this.id = id;
+		this.primeiraNota = primeiraNota;
+		this.segundaNota = segundaNota;
+		this.terceiraNota = terceiraNota;
+		this.recuperacao = recuperacao;
+		this.falta = falta;
+		
+	}
 
 }

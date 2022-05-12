@@ -1,11 +1,11 @@
-package com.eeifpinoquio.api.controller.converter.boletim;
+package com.eeifpinoquio.api.controller.converter.bimestre;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class BimestreBoletimResponse {
+public class BimestreResponse {
 	
 	private Long id;
 	

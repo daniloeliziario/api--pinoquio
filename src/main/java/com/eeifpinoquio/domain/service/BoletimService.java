@@ -14,6 +14,7 @@ import com.eeifpinoquio.domain.exception.RecursoEmUsoException;
 import com.eeifpinoquio.domain.exception.RecursoNaoEncontradoException;
 import com.eeifpinoquio.domain.model.Aluno;
 import com.eeifpinoquio.domain.model.Ano;
+import com.eeifpinoquio.domain.model.Bimestre;
 import com.eeifpinoquio.domain.model.Boletim;
 import com.eeifpinoquio.domain.model.Disciplina;
 import com.eeifpinoquio.domain.repository.BoletimRepository;
@@ -47,7 +48,7 @@ public class BoletimService {
 		
 		List<Disciplina> disciplinas = anoAtual.getMaterias()
 				.stream()
-				.map(materia -> new Disciplina(materia.getTitulo()))
+				.map(materia -> new Disciplina(materia.getTitulo(), new Bimestre(), new Bimestre(), new Bimestre(), new Bimestre()))
 				.collect(Collectors.toList());
 		
 		boletim.setDisciplinas(disciplinas);
@@ -57,11 +58,14 @@ public class BoletimService {
 	}
 	
 	@Transactional
-	public Boletim alterar(Long id, Boletim boletimAtualizado) {	
-		
-		Boletim boletimAtual = buscarOuFalhar(id);
-		
-		return boletimRepository.save(boletimAtual);
+	public Boletim salvar(Long aluno, Ano ano) {	
+								
+		List<Disciplina> disciplinas = ano.getMaterias()
+				.stream()
+				.map(materia -> new Disciplina(materia.getTitulo(), new Bimestre(), new Bimestre(), new Bimestre(), new Bimestre()))
+				.collect(Collectors.toList());
+				
+		return boletimRepository.save(new Boletim(aluno, ano.getTitulo(), disciplinas));
 	}
 	
 	@Transactional

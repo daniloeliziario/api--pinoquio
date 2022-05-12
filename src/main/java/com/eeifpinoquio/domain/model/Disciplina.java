@@ -2,6 +2,7 @@ package com.eeifpinoquio.domain.model;
 
 import java.time.OffsetDateTime;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,16 +24,16 @@ public class Disciplina {
 	
 	private String materia;
 	
-	@OneToOne
+	@OneToOne(cascade={CascadeType.ALL})
 	private Bimestre primeiroBimestre;
 	
-	@OneToOne
+	@OneToOne(cascade={CascadeType.ALL})
 	private Bimestre segundoBimestre;
 	
-	@OneToOne
+	@OneToOne(cascade={CascadeType.ALL})
 	private Bimestre terceiroBimestre;
 	
-	@OneToOne
+	@OneToOne(cascade={CascadeType.ALL})
 	private Bimestre quartoBimestre;
 	
 	@CreationTimestamp
@@ -42,8 +43,25 @@ public class Disciplina {
 	private OffsetDateTime dataAtualizacao;
 	
 	
-	public Disciplina(String materia) {
+	public Disciplina() {
+		
+	}
+	
+	public Disciplina(Long id, String materia, Bimestre primeiroBimestre, Bimestre segundoBimestre, Bimestre terceiroBimestre, Bimestre quartoBimestre) {
+		this.id = id;
 		this.materia = materia;
+		this.primeiroBimestre = primeiroBimestre;
+		this.segundoBimestre = segundoBimestre;
+		this.terceiroBimestre = terceiroBimestre;
+		this.quartoBimestre = quartoBimestre;
+	}	
+	
+	public Disciplina(String materia, Bimestre primeiroBimestre, Bimestre segundoBimestre, Bimestre terceiroBimestre, Bimestre quartoBimestre) {
+		this.materia = materia;
+		this.primeiroBimestre = primeiroBimestre;
+		this.segundoBimestre = segundoBimestre;
+		this.terceiroBimestre = terceiroBimestre;
+		this.quartoBimestre = quartoBimestre;
 	}
 
 }

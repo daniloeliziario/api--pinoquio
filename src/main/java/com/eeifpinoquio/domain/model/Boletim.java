@@ -1,7 +1,9 @@
 package com.eeifpinoquio.domain.model;
 
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -39,5 +41,16 @@ public class Boletim {
 	
 	@UpdateTimestamp
 	private OffsetDateTime dataAtualizacao;
+	
+	
+	public Boletim() {
+		
+	}
+	
+	public Boletim(Long aluno, String ano, List<Disciplina> disciplinas) {
+		this.aluno = aluno;
+		this.ano = ano;
+		this.disciplinas = disciplinas;
+	}	
 
 }

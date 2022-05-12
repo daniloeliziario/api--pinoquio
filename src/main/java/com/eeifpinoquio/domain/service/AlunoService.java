@@ -28,6 +28,9 @@ public class AlunoService {
 	@Autowired
 	private AnoService anoService;
 	
+	@Autowired
+	private BoletimService boletimService;
+	
 	private static final String RECURSO_ALUNO = "Aluno";
 	
 	@Transactional
@@ -44,7 +47,11 @@ public class AlunoService {
 		
 		aluno.setAno(anoAtual);
 		
-		return alunoRepository.save(aluno);
+		Aluno alunoSalvo = alunoRepository.save(aluno);
+		
+		boletimService.salvar(alunoSalvo.getMatricula(), alunoSalvo.getAno());
+		
+		return alunoSalvo;
 	}
 	
 	@Transactional
