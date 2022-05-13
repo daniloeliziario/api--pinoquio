@@ -47,15 +47,6 @@ public class Disciplina {
 		
 	}
 	
-	public Disciplina(Long id, String materia, Bimestre primeiroBimestre, Bimestre segundoBimestre, Bimestre terceiroBimestre, Bimestre quartoBimestre) {
-		this.id = id;
-		this.materia = materia;
-		this.primeiroBimestre = primeiroBimestre;
-		this.segundoBimestre = segundoBimestre;
-		this.terceiroBimestre = terceiroBimestre;
-		this.quartoBimestre = quartoBimestre;
-	}	
-	
 	public Disciplina(String materia, Bimestre primeiroBimestre, Bimestre segundoBimestre, Bimestre terceiroBimestre, Bimestre quartoBimestre) {
 		this.materia = materia;
 		this.primeiroBimestre = primeiroBimestre;

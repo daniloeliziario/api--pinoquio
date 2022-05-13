@@ -51,6 +51,22 @@ public class UsuarioService {
 		return usuarioRepository.save(usuarioAtual);
 	}
 	
+	@Transactional
+	public void ativar(Long id) {
+		
+		Usuario usuarioAtual = buscarOuFalhar(id);
+		
+		usuarioAtual.ativar();
+	}
+	
+	@Transactional
+	public void inativar(Long id) {
+		
+		Usuario usuarioAtual = buscarOuFalhar(id);
+		
+		usuarioAtual.inativar();
+	}	
+	
 	public List<Usuario> listarTodos() { 
 		return usuarioRepository.findAll();
 	}

@@ -1,9 +1,7 @@
 package com.eeifpinoquio.domain.model;
 
 import java.time.OffsetDateTime;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;

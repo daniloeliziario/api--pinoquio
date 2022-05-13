@@ -12,5 +12,7 @@ public class UsuarioResponse {
 	private String nome;
 	
 	private String email;
+	
+	private Boolean ativo;
 
 }

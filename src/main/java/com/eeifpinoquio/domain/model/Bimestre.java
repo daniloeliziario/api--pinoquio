@@ -37,20 +37,5 @@ public class Bimestre {
 	
 	@UpdateTimestamp
 	private OffsetDateTime dataAtualizacao;
-	
-	
-	public Bimestre() {
-		
-	}
-	
-	public Bimestre(Long id, Double primeiraNota, Double segundaNota, Double terceiraNota, Double recuperacao, Integer falta) {
-		this.id = id;
-		this.primeiraNota = primeiraNota;
-		this.segundaNota = segundaNota;
-		this.terceiraNota = terceiraNota;
-		this.recuperacao = recuperacao;
-		this.falta = falta;
-		
-	}
 
 }
