@@ -14,8 +14,11 @@ public interface BoletimRepository extends JpaRepository<Boletim, Long>, Boletim
 	
 	Optional<Boletim> findByAluno(Long aluno);
 	
-	@Query("select bdp, bds, bdt, bdq from Boletim b join b.disciplinas bd join bd.primeiroBimestre bdp join bd.segundoBimestre bds join bd.terceiroBimestre bdt join bd.quartoBimestre bdq "
-			+ "where b.id = :idBoletim and bd.id = :idDisciplina and (bdp.id = :idBimestre or bds.id = :idBimestre or bdt.id = :idBimestre or bdq.id = :idBimestre)")
+	@Query("select bi from Boletim b join b.disciplinas d, Bimestre bi "
+			+ "where b.id = :idBoletim "
+			+ "and d.id = :idDisciplina "
+			+ "and bi.id = :idBimestre "
+			+ "and (d.primeiroBimestre.id = bi.id or d.segundoBimestre.id = bi.id or d.terceiroBimestre.id = bi.id or d.quartoBimestre.id = bi.id)")
 	Optional<Bimestre> findBimestreById(Long idBoletim, Long idDisciplina, Long idBimestre);
 
 }
