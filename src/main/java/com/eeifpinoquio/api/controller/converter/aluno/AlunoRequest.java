@@ -2,6 +2,7 @@ package com.eeifpinoquio.api.controller.converter.aluno;
 
 import java.time.LocalDate;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -24,6 +25,7 @@ public class AlunoRequest {
 	@NotNull
 	private LocalDate dataNascimento;
 	
+	@Valid
 	@NotNull
 	private AnoAlunoRequest ano;	
 

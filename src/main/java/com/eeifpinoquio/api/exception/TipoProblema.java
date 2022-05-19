@@ -19,7 +19,7 @@ public enum TipoProblema {
 	private String uri;
 	
 	TipoProblema(String uri, String titulo) {
-		this.uri = "https://escolapinoquio.com" + uri;
+		this.uri = uri;
 		this.titulo = titulo;
 	}
 	
