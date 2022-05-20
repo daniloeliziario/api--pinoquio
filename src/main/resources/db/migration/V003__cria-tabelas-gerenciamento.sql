@@ -51,10 +51,10 @@ create table bimestre (
 create table disciplina (
 	id bigint not null auto_increment,
 	materia varchar(80) not null,
-	primeiro_bimestre_id bigint,
-	segundo_bimestre_id bigint,
-	terceiro_bimestre_id bigint,
-	quarto_bimestre_id bigint,
+	primeiro_bimestre_id bigint not null,
+	segundo_bimestre_id bigint not null,
+	terceiro_bimestre_id bigint not null,
+	quarto_bimestre_id bigint not null,
 	data_cadastro datetime not null,
 	data_atualizacao datetime not null,
 	
@@ -71,7 +71,7 @@ create table aluno (
 	nome varchar(80) not null,
 	nome_pai varchar(80) not null,
 	nome_mae varchar(80) not null,
-	data_nascimento datetime null,
+	data_nascimento date not null,
 	ano_id bigint not null,	
 	data_cadastro datetime not null,
 	data_atualizacao datetime not null,

@@ -50,10 +50,10 @@ insert into materia (id, titulo, descricao, ano_id, professor_id, data_cadastro,
 (6, 'Português', 'Português do 2º Ano', 2, 3, utc_timestamp, utc_timestamp);
 
 insert into aluno (matricula, nome, nome_pai, nome_mae, data_nascimento, ano_id, data_cadastro, data_atualizacao, ativo) values
-(1, 'Danilo', 'Arinaldo', 'Desterro', utc_timestamp, 1, utc_timestamp, utc_timestamp, true),
-(2, 'Daniel', 'Arinaldo', 'Desterro', utc_timestamp, 1, utc_timestamp, utc_timestamp, true),
-(3, 'Camila', 'Arinaldo', 'Desterro', utc_timestamp, 2, utc_timestamp, utc_timestamp, true),
-(4, 'André', 'Arinaldo', 'Desterro', utc_timestamp, 2, utc_timestamp, utc_timestamp, true);
+(1, 'Danilo', 'Arinaldo', 'Desterro', '1992-07-24', 1, utc_timestamp, utc_timestamp, true),
+(2, 'Daniel', 'Arinaldo', 'Desterro', '1992-07-24', 1, utc_timestamp, utc_timestamp, true),
+(3, 'Camila', 'Arinaldo', 'Desterro', '1992-07-26', 2, utc_timestamp, utc_timestamp, true),
+(4, 'André', 'Arinaldo', 'Desterro', '1992-05-13', 2, utc_timestamp, utc_timestamp, true);
 
 
 
