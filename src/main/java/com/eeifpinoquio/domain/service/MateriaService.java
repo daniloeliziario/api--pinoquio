@@ -11,7 +11,6 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.eeifpinoquio.domain.exception.PinoquioException;
 import com.eeifpinoquio.domain.exception.RecursoEmUsoException;
 import com.eeifpinoquio.domain.exception.RecursoJaExisteException;
 import com.eeifpinoquio.domain.exception.RecursoNaoEncontradoException;
@@ -30,6 +29,7 @@ public class MateriaService {
 	
 	private static final String RECURSO_MATERIA = "Materia";
 	
+	private static final String CAMPO_UNICO = "descricao";	
 	
 	@Transactional
 	public Materia salvar(Materia materia) {	
@@ -37,7 +37,7 @@ public class MateriaService {
 		Optional<Materia> materiaExistente = materiaRepository.findByDescricao(materia.getDescricao());
 		
 		if(materiaExistente.isPresent()) {
-			throw new RecursoJaExisteException(RECURSO_MATERIA);
+			throw new RecursoJaExisteException(RECURSO_MATERIA, CAMPO_UNICO);
 		}
 		
 		Long professorId = materia.getProfessor().getId();		
@@ -56,7 +56,7 @@ public class MateriaService {
 		Optional<Materia> materiaExistente = materiaRepository.findByDescricao(materiaAtualizado.getDescricao());
 		
 		if(materiaExistente.isPresent() && notEqual(materiaAtual, materiaExistente.get())) {
-			throw new PinoquioException(RECURSO_MATERIA);
+			throw new RecursoJaExisteException(RECURSO_MATERIA, CAMPO_UNICO);
 		}
 		
 		Long professorId = materiaAtualizado.getProfessor().getId();		
@@ -79,7 +79,7 @@ public class MateriaService {
 			throw new RecursoNaoEncontradoException(RECURSO_MATERIA, id);
 		
 		} catch (DataIntegrityViolationException e) {
-			throw new RecursoEmUsoException(RECURSO_MATERIA);
+			throw new RecursoEmUsoException(RECURSO_MATERIA, id);
 		}
 	}
 	

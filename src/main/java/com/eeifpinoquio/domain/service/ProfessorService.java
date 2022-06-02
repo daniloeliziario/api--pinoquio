@@ -11,7 +11,6 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.eeifpinoquio.domain.exception.PinoquioException;
 import com.eeifpinoquio.domain.exception.RecursoEmUsoException;
 import com.eeifpinoquio.domain.exception.RecursoJaExisteException;
 import com.eeifpinoquio.domain.exception.RecursoNaoEncontradoException;
@@ -26,13 +25,15 @@ public class ProfessorService {
 	
 	private static final String RECURSO_PROFESSOR = "Professor";
 	
+	private static final String CAMPO_UNICO = "nome";	
+	
 	@Transactional
 	public Professor salvar(Professor professor) {		
 		
 		Optional<Professor> professorExistente = professorRepository.findByNome(professor.getNome());
 		
 		if(professorExistente.isPresent()) {
-			throw new RecursoJaExisteException(RECURSO_PROFESSOR);
+			throw new RecursoJaExisteException(RECURSO_PROFESSOR, CAMPO_UNICO);
 		}
 		
 		return professorRepository.save(professor);
@@ -46,7 +47,7 @@ public class ProfessorService {
 		Optional<Professor> professorExistente = professorRepository.findByNome(professorAtualizado.getNome());
 		
 		if(professorExistente.isPresent() && notEqual(professorAtual, professorExistente.get())) {
-			throw new PinoquioException(RECURSO_PROFESSOR);
+			throw new RecursoJaExisteException(RECURSO_PROFESSOR, CAMPO_UNICO);
 		}
 		
 		professorAtual.setNome(professorAtualizado.getNome());
@@ -64,7 +65,7 @@ public class ProfessorService {
 			throw new RecursoNaoEncontradoException(RECURSO_PROFESSOR, id);
 		
 		} catch (DataIntegrityViolationException e) {
-			throw new RecursoEmUsoException(RECURSO_PROFESSOR);
+			throw new RecursoEmUsoException(RECURSO_PROFESSOR, id);
 		}
 	}
 	

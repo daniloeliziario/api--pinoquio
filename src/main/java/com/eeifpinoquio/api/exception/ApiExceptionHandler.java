@@ -22,6 +22,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import com.eeifpinoquio.domain.exception.PinoquioException;
 import com.eeifpinoquio.domain.exception.RecursoEmUsoException;
+import com.eeifpinoquio.domain.exception.RecursoInativoException;
 import com.eeifpinoquio.domain.exception.RecursoJaExisteException;
 import com.eeifpinoquio.domain.exception.RecursoNaoEncontradoException;
 import com.fasterxml.jackson.databind.JsonMappingException.Reference;
@@ -191,8 +192,8 @@ class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
 		TipoProblema tipoProblema = TipoProblema.RECURSO_JA_EXISTE;
 
-		String detalhe = String.format("%1$s já existe. Por favor, insira um(a) %1$s com um campo diferente",
-				ex.getMessage());
+		String detalhe = String.format("%1$s já existe. Por favor, insira um(a) %1$s(a) com um %2$s diferente",
+				ex.getMessage(), ex.getCampo());
 
 		Problema problema = criarProblemaBuilder(status, tipoProblema, detalhe);
 
@@ -206,7 +207,7 @@ class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
 		TipoProblema tipoProblema = TipoProblema.RECURSO_EM_USO;
 
-		String detalhe = String.format("O recurso %s está sendo utilizado por outro recurso e não é possível executar a operação", ex.getMessage());
+		String detalhe = String.format("O %s com id %s está sendo utilizado por outro(s) recurso(s) e por isso não é possível executar a operação", ex.getMessage(), ex.getId());
 
 		Problema problema = criarProblemaBuilder(status, tipoProblema, detalhe);
 
@@ -220,7 +221,21 @@ class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
 		TipoProblema tipoProblema = TipoProblema.RECURSO_NAO_ENCONTRADO;
 
-		String detalhe = String.format("Não existe %s com id: %s", ex.getMessage(), ex.getId());
+		String detalhe = String.format("Não existe %s com id %s", ex.getMessage(), ex.getId());
+
+		Problema problema = criarProblemaBuilder(status, tipoProblema, detalhe);
+
+		return super.handleExceptionInternal(ex, problema, new HttpHeaders(), status, request);
+	}
+	
+	@ExceptionHandler(RecursoInativoException.class)
+	private ResponseEntity<Object> handleRecursoInativo(RecursoInativoException ex, WebRequest request) {
+
+		HttpStatus status = HttpStatus.FORBIDDEN;
+
+		TipoProblema tipoProblema = TipoProblema.RECURSO_INATIVO;
+
+		String detalhe = String.format("Não é possível realizar a operação porque o recurso %s está inativo", ex.getMessage());
 
 		Problema problema = criarProblemaBuilder(status, tipoProblema, detalhe);
 

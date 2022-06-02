@@ -12,7 +12,6 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.eeifpinoquio.domain.exception.PinoquioException;
 import com.eeifpinoquio.domain.exception.RecursoEmUsoException;
 import com.eeifpinoquio.domain.exception.RecursoJaExisteException;
 import com.eeifpinoquio.domain.exception.RecursoNaoEncontradoException;
@@ -31,6 +30,7 @@ public class AnoService {
 	
 	private static final String RECURSO_ANO = "Ano";
 	
+	private static final String CAMPO_UNICO = "titulo";
 	
 	@Transactional
 	public Ano salvar(Ano ano) {			
@@ -38,7 +38,7 @@ public class AnoService {
 		Optional<Ano> anoExistente = anoRepository.findByTitulo(ano.getTitulo());
 		
 		if(anoExistente.isPresent()) {
-			throw new RecursoJaExisteException(RECURSO_ANO);
+			throw new RecursoJaExisteException(RECURSO_ANO, CAMPO_UNICO);
 		}
 		
 		List<Materia> materias = ano.getMaterias().stream()
@@ -58,7 +58,7 @@ public class AnoService {
 		Optional<Ano> anoExistente = anoRepository.findByTitulo(anoAtualizado.getTitulo());
 		
 		if(anoExistente.isPresent() && notEqual(anoAtual, anoExistente.get())) {
-			throw new PinoquioException(RECURSO_ANO);
+			throw new RecursoJaExisteException(RECURSO_ANO, CAMPO_UNICO);
 		}
 		
 		List<Materia> materias = anoAtualizado.getMaterias().stream()
@@ -81,7 +81,7 @@ public class AnoService {
 			throw new RecursoNaoEncontradoException(RECURSO_ANO, id);
 		
 		} catch (DataIntegrityViolationException e) {
-			throw new RecursoEmUsoException(RECURSO_ANO);
+			throw new RecursoEmUsoException(RECURSO_ANO, id);
 		}
 	}
 	

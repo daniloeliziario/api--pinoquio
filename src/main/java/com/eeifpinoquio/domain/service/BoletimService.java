@@ -9,8 +9,8 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.eeifpinoquio.domain.exception.PinoquioException;
 import com.eeifpinoquio.domain.exception.RecursoEmUsoException;
+import com.eeifpinoquio.domain.exception.RecursoInativoException;
 import com.eeifpinoquio.domain.exception.RecursoNaoEncontradoException;
 import com.eeifpinoquio.domain.model.Aluno;
 import com.eeifpinoquio.domain.model.Ano;
@@ -33,6 +33,8 @@ public class BoletimService {
 	
 	private static final String RECURSO_BOLETIM = "Boletim";	
 	
+	private static final String RECURSO_ALUNO = "Aluno";
+	
 	@Transactional
 	public Boletim salvar(Boletim boletim) {	
 		
@@ -40,7 +42,7 @@ public class BoletimService {
 		Aluno alunoAtual = alunoService.buscarOuFalhar(alunoMatricula);
 		
 		if(alunoAtual.getAtivo().equals(false)) {
-			throw new PinoquioException(RECURSO_BOLETIM);
+			throw new RecursoInativoException(RECURSO_ALUNO);
 		}
 		
 		String anoTitulo = boletim.getAno();
@@ -78,7 +80,7 @@ public class BoletimService {
 			throw new RecursoNaoEncontradoException(RECURSO_BOLETIM, id);
 		
 		} catch (DataIntegrityViolationException e) {
-			throw new RecursoEmUsoException(RECURSO_BOLETIM);
+			throw new RecursoEmUsoException(RECURSO_BOLETIM, id);
 		}
 	}
 	

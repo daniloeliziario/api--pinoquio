@@ -19,7 +19,7 @@ public class NoticiaService {
 	@Autowired
 	private NoticiaRepository noticiaRepository;
 	
-	private static final String RECURSO_NOTICIA = "Notícia";
+	private static final String RECURSO_NOTICIA = "Noticia";
 	
 	
 	@Transactional
@@ -50,7 +50,7 @@ public class NoticiaService {
 			throw new RecursoNaoEncontradoException(RECURSO_NOTICIA, id);
 		
 		} catch (DataIntegrityViolationException e) {
-			throw new RecursoEmUsoException(RECURSO_NOTICIA);
+			throw new RecursoEmUsoException(RECURSO_NOTICIA, id);
 		}
 	}
 	

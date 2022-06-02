@@ -8,6 +8,7 @@ public enum TipoProblema {
 	RECURSO_JA_EXISTE("/recurso-ja-existe", "Recurso já existe"),
 	RECURSO_EM_USO("/recurso-em-uso", "Recurso em uso"),
 	RECURSO_NAO_ENCONTRADO("/recurso-nao-encontrado", "Recurso não encontrado"),
+	RECURSO_INATIVO("/recurso-inativo", "Recurso inativo"),
 	ERRO_NA_REQUISICAO("/erro-na-requisicao", "Erro na requisição"),
 	METODO_NAO_SUPORTADO("/metodo-nao-suportado", "Método não suportado"),
 	ERRO_NO_SISTEMA("/erro-no-sistema", "Erro no sistema"),
